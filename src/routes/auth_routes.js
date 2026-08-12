@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import {registerUser, login, logoutUser, refreshAccessToken, verifyEmail, forgotPasswordRequest, getCurrentUser,resetForgotPassword, changeCurrentPassword, resendEmailVerification} from "../controller/auth.controllers.js"
 
 import{validate} from "../middlewares/validator.middleware.js"

@@ -37,17 +37,17 @@ const userSchema = new Schema(
             type: String,
             required:[true,"Password is required"]
         },
-        isEmaillVerified: {
+        isEmailVerified: {
             type: Boolean,
             default: false
         },
         refreshToken: {
             type: String
         },
-        forogtPasswordToken:{
+        forgotPasswordToken:{
             type: String
         },
-        forogtPasswordExpiry:{
+        forgotPasswordExpiry:{
             type: Date
         },
         emailVerificationToken :{

@@ -178,14 +178,61 @@ const deleteTask = asyncHandler(async(req,res)=>{
 
 })
 const createSubTask = asyncHandler(async(req,res)=>{
+    const{ taskId } = req.params;
+    const{ title } = req.body;
+    const task = await Task.findById(taskId);
+    if(!task){
+        throw new ApiError(404, "Task not found");
+    }
+    const subTask = await Subtask.create({
+        title,
+        task: new mongoose.Types.ObjectId(taskId),
+        createdBy:new mongoose.Types.ObjectId(req.user._id)
+    })
+    if(!subTask){
+        throw new ApiError(404,"SubTask creation failed");
+    }
+    return res.status(201).json(new ApiResponse(201, subTask, "Subtask created successfully"));
 })
 const getSubTasks = asyncHandler(async(req,res)=>{
+    const{ taskId } = req.params;
+    const task = await Task.findById(taskId);
+    if(!task){
+        throw new ApiError(404, "Task not found");
+    }
+   const subTasks = await Subtask.findById(taskId).populate("createdBy", "username fullName avatar");
+    return res.status(200).json(new ApiResponse(200, subTasks,"subtasks fetch successfully"))
+
 
 })
 const updateSubTask = asyncHandler(async(req,res)=>{
+    const{subTaskId} = req.params;
+    const{title} = req.body;
+    if(!title){
+        throw new ApiError(400, "Title is required")
+    }
+    const subTask = await Subtask.findByIdAndUpdate(
+        subTaskId,
+        {
+            $set:{title}
+        }, {new: true}
+    )
+    if(!subTask){
+        throw new ApiError(404, "subtask not found")
+    }
+    return res.status(200).json(new ApiResponse(200, subTask, "subtask updated successfully"));
 
 })
 const deleteSubTask = asyncHandler(async(req,res)=>{
+    const {subTaskId} = req.params;
+    if (subTask.createdBy.toString() !== req.user._id.toString()) {
+        throw new ApiError(403, "Only the creator can delete this subtask");
+    }
+    const subTask = await Subtask.findByIdAndDelete(subTaskId);
+    if(!subTask){
+        throw new ApiError(404, "Subtask not found");
+    }
+    return res.status(200).json( new ApiResponse(200, subTask, "Subtask deleted successfully"));
 
 })
 

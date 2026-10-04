@@ -42,5 +42,8 @@ router.route("/update/:taskId").put(
     validate,
     updateTask
 );
-router.route("/delete/:taskId").delete(validateTaskOwner,deleteTask);
+router.route("/createsubtask/:taskId").post(createSubTask);
+router.route("/getsubtasks/:taskId").get(getSubTasks);
+router.route("/updatesubTask/:subTaskId").put(updateSubTask);
+router.route("/deletesubtask/:subTaskId").delete(deleteSubTask);
 export default router;

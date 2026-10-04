@@ -200,7 +200,7 @@ const getSubTasks = asyncHandler(async(req,res)=>{
     if(!task){
         throw new ApiError(404, "Task not found");
     }
-   const subTasks = await Subtask.findById(taskId).populate("createdBy", "username fullName avatar");
+   const subTasks = await Subtask.find({ task: taskId }).populate("createdBy", "username fullName avatar");
     return res.status(200).json(new ApiResponse(200, subTasks,"subtasks fetch successfully"))
 
 
@@ -225,13 +225,15 @@ const updateSubTask = asyncHandler(async(req,res)=>{
 })
 const deleteSubTask = asyncHandler(async(req,res)=>{
     const {subTaskId} = req.params;
-    if (subTask.createdBy.toString() !== req.user._id.toString()) {
+    const subtask = await Subtask.findById(subTaskId);
+    if(!subtask){
+        throw new ApiError(404, "Subtask not found");
+    }
+    if (subtask.createdBy.toString() !== req.user._id.toString()) {
         throw new ApiError(403, "Only the creator can delete this subtask");
     }
     const subTask = await Subtask.findByIdAndDelete(subTaskId);
-    if(!subTask){
-        throw new ApiError(404, "Subtask not found");
-    }
+    
     return res.status(200).json( new ApiResponse(200, subTask, "Subtask deleted successfully"));
 
 })

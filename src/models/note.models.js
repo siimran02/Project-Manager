@@ -17,4 +17,4 @@ const projectNoteSchema = new Schema({
     }
 },{timestamps:true})
 
-export const ProjectNote = mongoosePopulatedDocumentMarker.model("ProjectNote",projectNoteSchema);
+export const ProjectNote = mongoose.model("ProjectNote",projectNoteSchema);

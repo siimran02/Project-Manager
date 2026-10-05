@@ -19,6 +19,7 @@ Features implemented:
  6. Reset Password.
  7. Access Token renew
  8. Email verification ( mailtrap + nodemailer)
+    
 Project Management:
 1. create Project
 2. update Project
@@ -30,6 +31,7 @@ Project Management:
 8. update projectmember role
 9. delete project
 10. delete projectmember
+    
 Task Management:
 1. create task
 2. update task
@@ -38,11 +40,13 @@ Task Management:
 5. getTaskbyId
 6. only creator of task can delete and update the task.
 7. validation
+   
 SubTask Management:
 1. Create subtask
 2. update subtask
 3. delete subtask
 4. get subtask
+   
 Note Management:
 1. Add Note to project
 2. edit note

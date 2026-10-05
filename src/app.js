@@ -27,13 +27,14 @@ import healthCheckRouter from "./routes/healthcheck.routes.js";
 import authRouter from "./routes/auth_routes.js"
 import projectRouter from "./routes/project.routes.js"
 import taskRouter from "./routes/task.routes.js"
+import noteRouter from "./routes/note.route.js"
 import cookieParser from "cookie-parser";
 
 app.use("/api/v1/healthcheck", healthCheckRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/project", projectRouter);
 app.use("/api/v1/task", taskRouter);
-
+app.use("/api/v1/note", noteRouter);
 app.get("/",(req,res)=>{
     res.send("Welcome to Basecampy")
 })
